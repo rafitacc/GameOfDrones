@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GameOfDrones.Server/GameOfDrones.Server.csproj" />
+  <Project Path="GameOfDrones.Tests/GameOfDrones.Tests.csproj" />
+</Solution>
