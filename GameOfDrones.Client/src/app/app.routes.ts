@@ -16,5 +16,10 @@ export const routes: Routes = [
     title: 'title.game',
     loadComponent: () => import('./features/game/game').then((m) => m.GamePage),
   },
+  {
+    path: 'games/:id/winner',
+    title: 'title.winner',
+    loadComponent: () => import('./features/winner/winner').then((m) => m.Winner),
+  },
   { path: '**', redirectTo: '' },
 ];
