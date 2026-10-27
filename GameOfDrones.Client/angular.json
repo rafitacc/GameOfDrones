@@ -32,6 +32,9 @@
               }
             ],
             "styles": [
+              "node_modules/@fontsource-variable/fraunces/opsz.css",
+              "node_modules/@fontsource-variable/fraunces/opsz-italic.css",
+              "node_modules/@fontsource-variable/manrope/index.css",
               "src/styles.scss"
             ]
           },

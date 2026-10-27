@@ -1,0 +1,91 @@
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 2rem, var(--page-width));
+  margin: 0 auto;
+  padding: 1.25rem 0;
+}
+
+.app-header__brand {
+  display: inline-flex;
+  gap: 0.625rem;
+  align-items: center;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-header__mark {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: conic-gradient(var(--p1) 0 50%, var(--p2) 0 100%);
+  box-shadow:
+    0 0 0 3px var(--surface),
+    0 0 0 4px var(--line);
+}
+
+.app-header__controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 0.1875rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.segmented__option {
+  min-width: 2.25rem;
+  height: 2rem;
+  padding: 0 0.625rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease-out,
+    color 160ms ease-out;
+
+  &:hover {
+    color: var(--ink);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.segmented__option--icon {
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .fill {
+    fill: currentColor;
+    stroke: none;
+  }
+}
