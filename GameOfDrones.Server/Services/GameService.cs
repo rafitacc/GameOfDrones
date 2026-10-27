@@ -3,6 +3,7 @@ using GameOfDrones.Server.Domain;
 using GameOfDrones.Server.Dtos;
 using GameOfDrones.Server.Entities;
 using GameOfDrones.Server.Exceptions;
+using GameOfDrones.Server.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameOfDrones.Server.Services;
@@ -15,11 +16,11 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
         var player2Name = request.Player2Name.Trim();
 
         var errors = new List<string>();
-        ValidatePlayerName(player1Name, "Player 1", errors);
-        ValidatePlayerName(player2Name, "Player 2", errors);
+        ValidatePlayerName(player1Name, 1, errors);
+        ValidatePlayerName(player2Name, 2, errors);
         if (errors.Count == 0 && string.Equals(player1Name, player2Name, StringComparison.OrdinalIgnoreCase))
         {
-            errors.Add("Players must have different names.");
+            errors.Add(Messages.PlayersMustDiffer);
         }
 
         if (errors.Count > 0)
@@ -47,7 +48,7 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
         var game = await LoadGameAsync(id, cancellationToken);
         if (game.WinnerId is not null)
         {
-            throw new ConflictException("This game has already finished.");
+            throw new ConflictException(Messages.GameAlreadyFinished);
         }
 
         var moves = await moveService.GetAllAsync(cancellationToken);
@@ -73,15 +74,15 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
         return ToDto(game);
     }
 
-    private static void ValidatePlayerName(string name, string label, List<string> errors)
+    private static void ValidatePlayerName(string name, int playerNumber, List<string> errors)
     {
         if (name.Length == 0)
         {
-            errors.Add($"{label} name is required.");
+            errors.Add(string.Format(Messages.PlayerNameRequired, playerNumber));
         }
         else if (name.Length > Player.NameMaxLength)
         {
-            errors.Add($"{label} name must be at most {Player.NameMaxLength} characters long.");
+            errors.Add(string.Format(Messages.PlayerNameTooLong, playerNumber, Player.NameMaxLength));
         }
     }
 
@@ -95,11 +96,11 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
             .Include(g => g.Player2)
             .Include(g => g.Rounds.OrderBy(r => r.Number))
             .FirstOrDefaultAsync(g => g.Id == id, cancellationToken)
-            ?? throw new NotFoundException($"Game {id} does not exist.");
+            ?? throw new NotFoundException(string.Format(Messages.GameNotFound, id));
 
     private static string FindMoveName(IReadOnlyList<MoveDto> moves, string requested) =>
         moves.FirstOrDefault(m => string.Equals(m.Name, requested.Trim(), StringComparison.OrdinalIgnoreCase))?.Name
-            ?? throw new RequestValidationException([$"'{requested}' is not a valid move."]);
+            ?? throw new RequestValidationException([string.Format(Messages.InvalidMove, requested)]);
 
     private static Player? PlayerIn(Game game, PlayerSlot? slot) => slot switch
     {

@@ -1,3 +1,4 @@
+using System.Globalization;
 using GameOfDrones.Server.Dtos;
 using GameOfDrones.Server.Services;
 
@@ -5,6 +6,11 @@ namespace GameOfDrones.Tests;
 
 public class RuleSetValidatorTests
 {
+    public RuleSetValidatorTests()
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en");
+    }
+
     private static MoveDto Move(string name, params string[] kills) => new(name, kills);
 
     [Fact]
@@ -93,5 +99,15 @@ public class RuleSetValidatorTests
         var errors = RuleSetValidator.Validate([Move("Paper", "Rock"), Move("Rock", "Paper")]);
 
         Assert.Equal(["'Paper' and 'Rock' cannot kill each other."], errors);
+    }
+
+    [Fact]
+    public void Validate_UsesTheCurrentUiCultureForMessages()
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("es");
+
+        var errors = RuleSetValidator.Validate([Move("Paper", "Paper"), Move("Rock")]);
+
+        Assert.Contains("'Paper' no puede matarse a sí mismo.", errors);
     }
 }

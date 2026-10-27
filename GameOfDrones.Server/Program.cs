@@ -16,6 +16,12 @@ builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<MoveService>();
 builder.Services.AddScoped<PlayerService>();
 
+string[] supportedCultures = ["en", "es"];
+builder.Services.AddRequestLocalization(options => options
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures));
+
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddControllers();
@@ -27,6 +33,7 @@ using (var scope = app.Services.CreateScope())
     scope.ServiceProvider.GetRequiredService<GameOfDronesDbContext>().Database.Migrate();
 }
 
+app.UseRequestLocalization();
 app.UseExceptionHandler();
 
 if (!app.Environment.IsDevelopment())

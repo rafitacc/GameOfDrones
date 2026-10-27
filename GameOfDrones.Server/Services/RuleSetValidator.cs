@@ -1,5 +1,6 @@
 using GameOfDrones.Server.Dtos;
 using GameOfDrones.Server.Entities;
+using GameOfDrones.Server.Resources;
 
 namespace GameOfDrones.Server.Services;
 
@@ -13,7 +14,7 @@ public static class RuleSetValidator
 
         if (moves.Count < MinimumMoves)
         {
-            errors.Add($"At least {MinimumMoves} moves are required.");
+            errors.Add(string.Format(Messages.MinimumMoves, MinimumMoves));
         }
 
         var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -21,15 +22,15 @@ public static class RuleSetValidator
         {
             if (name.Length == 0)
             {
-                errors.Add("Move names cannot be empty.");
+                errors.Add(Messages.MoveNameRequired);
             }
             else if (name.Length > Move.NameMaxLength)
             {
-                errors.Add($"Move '{name}' must be at most {Move.NameMaxLength} characters long.");
+                errors.Add(string.Format(Messages.MoveNameTooLong, name, Move.NameMaxLength));
             }
             else if (!names.Add(name))
             {
-                errors.Add($"Move '{name}' is defined more than once.");
+                errors.Add(string.Format(Messages.MoveDefinedTwice, name));
             }
         }
 
@@ -42,16 +43,16 @@ public static class RuleSetValidator
         {
             if (!names.Contains(loser))
             {
-                errors.Add($"'{winner}' kills '{loser}', which is not a defined move.");
+                errors.Add(string.Format(Messages.MoveKillsUnknownMove, winner, loser));
             }
             else if (string.Equals(winner, loser, StringComparison.OrdinalIgnoreCase))
             {
-                errors.Add($"'{winner}' cannot kill itself.");
+                errors.Add(string.Format(Messages.MoveKillsItself, winner));
             }
             else if (killKeys.Contains(Key(loser, winner))
                 && string.Compare(winner, loser, StringComparison.OrdinalIgnoreCase) < 0)
             {
-                errors.Add($"'{winner}' and '{loser}' cannot kill each other.");
+                errors.Add(string.Format(Messages.MovesKillEachOther, winner, loser));
             }
         }
 
