@@ -1,0 +1,39 @@
+<main class="page setup">
+  <form class="card setup__card" [formGroup]="form" (ngSubmit)="start()" novalidate>
+    <h1 class="setup__title">{{ i18n.t('setup.title') }}</h1>
+
+    <div class="setup__players">
+      @for (player of players; track player.control) {
+        @let control = form.controls[player.control];
+        @let label = i18n.t('setup.player', { number: player.number });
+        <label class="name-field" [class]="player.css">
+          <span class="name-field__label">
+            <span class="player-dot"></span>
+            {{ label }}
+          </span>
+          <input
+            type="text"
+            [formControlName]="player.control"
+            [attr.maxlength]="nameMaxLength"
+            autocomplete="off"
+            [attr.aria-invalid]="control.touched && control.invalid"
+          />
+          @if (control.touched && control.hasError('required')) {
+            <span class="name-field__error">{{
+              i18n.t('setup.nameRequired', { number: player.number })
+            }}</span>
+          }
+        </label>
+      }
+    </div>
+
+    <app-error-alert [messages]="errors()" />
+
+    <div class="setup__actions">
+      <a class="text-link" routerLink="/">{{ i18n.t('setup.back') }}</a>
+      <button class="button" type="submit" [disabled]="starting()">
+        {{ starting() ? i18n.t('setup.starting') : i18n.t('setup.start') }}
+      </button>
+    </div>
+  </form>
+</main>

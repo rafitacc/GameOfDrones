@@ -1,0 +1,16 @@
+<main class="page home">
+  <section class="home__intro">
+    <h1 class="home__title">{{ i18n.t('home.title') }}</h1>
+    <p class="home__tagline">{{ i18n.t('home.tagline') }}</p>
+    <a class="button home__start" routerLink="/players">{{ i18n.t('home.start') }}</a>
+  </section>
+
+  <section class="card home__steps" aria-labelledby="how-it-works">
+    <h2 id="how-it-works" class="eyebrow">{{ i18n.t('home.howItWorks') }}</h2>
+    <ol>
+      @for (step of steps; track step) {
+        <li>{{ i18n.t(step) }}</li>
+      }
+    </ol>
+  </section>
+</main>
