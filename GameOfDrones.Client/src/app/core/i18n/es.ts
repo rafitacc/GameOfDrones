@@ -7,6 +7,7 @@ export const es: Record<TranslationKey, string> = {
   'title.game': 'Batalla · Game of Drones',
   'title.winner': 'Ganador · Game of Drones',
   'title.rules': 'Reglas · Game of Drones',
+  'title.stats': 'Estadísticas · Game of Drones',
 
   'common.back': 'Volver',
 
@@ -90,6 +91,15 @@ export const es: Record<TranslationKey, string> = {
   'rules.cancel': 'Cancelar',
   'rules.restored': 'Reglas por defecto restauradas.',
   'rules.loading': 'Cargando reglas…',
+
+  'stats.title': 'Estadísticas',
+  'stats.lead': 'Partidas terminadas de cada jugador, ordenadas por partidas ganadas.',
+  'stats.player': 'Jugador',
+  'stats.won': 'Ganadas',
+  'stats.played': 'Jugadas',
+  'stats.emptyTitle': 'Todavía no hay partidas',
+  'stats.emptyText': 'Termina una partida y aquí aparecerán los ganadores.',
+  'stats.loading': 'Cargando estadísticas…',
 
   'error.unexpected': 'Error inesperado. Inténtalo de nuevo.',
   'error.unreachable':

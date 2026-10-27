@@ -26,5 +26,10 @@ export const routes: Routes = [
     title: 'title.rules',
     loadComponent: () => import('./features/rules/rules').then((m) => m.Rules),
   },
+  {
+    path: 'stats',
+    title: 'title.stats',
+    loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
+  },
   { path: '**', redirectTo: '' },
 ];

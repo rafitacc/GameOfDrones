@@ -5,6 +5,7 @@ export const en = {
   'title.game': 'Battle · Game of Drones',
   'title.winner': 'Winner · Game of Drones',
   'title.rules': 'Rules · Game of Drones',
+  'title.stats': 'Stats · Game of Drones',
 
   'common.back': 'Back',
 
@@ -87,6 +88,15 @@ export const en = {
   'rules.cancel': 'Cancel',
   'rules.restored': 'Default rules restored.',
   'rules.loading': 'Loading rules…',
+
+  'stats.title': 'Stats',
+  'stats.lead': 'Finished games for every player, ordered by games won.',
+  'stats.player': 'Player',
+  'stats.won': 'Won',
+  'stats.played': 'Played',
+  'stats.emptyTitle': 'No games yet',
+  'stats.emptyText': 'Finish a game and the winners will show up here.',
+  'stats.loading': 'Loading stats…',
 
   'error.unexpected': 'Unexpected error. Try again.',
   'error.unreachable': 'The server cannot be reached. Check your connection and try again.',
