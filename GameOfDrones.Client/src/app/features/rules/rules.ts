@@ -9,7 +9,6 @@ import {
   signal,
   viewChildren,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { errorMessages } from '../../core/api/error-messages';
 import { MoveApi } from '../../core/api/move-api';
@@ -17,6 +16,7 @@ import { TranslationKey } from '../../core/i18n/en';
 import { I18n } from '../../core/i18n/i18n';
 import { Move, minimumMoves, moveNameMaxLength } from '../../core/models/move';
 import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { PageIntro } from '../../shared/page-intro/page-intro';
 
 /** Kills point to ids instead of names, so renaming a move keeps every rule that uses it. */
 interface DraftMove {
@@ -27,7 +27,7 @@ interface DraftMove {
 
 @Component({
   selector: 'app-rules',
-  imports: [RouterLink, ErrorAlert],
+  imports: [ErrorAlert, PageIntro],
   templateUrl: './rules.html',
   styleUrl: './rules.scss',
 })

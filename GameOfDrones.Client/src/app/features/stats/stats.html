@@ -1,9 +1,5 @@
 <main class="page stats">
-  <header class="stats__intro">
-    <a class="text-link" routerLink="/">{{ i18n.t('common.back') }}</a>
-    <h1 class="stats__title">{{ i18n.t('stats.title') }}</h1>
-    <p class="stats__lead">{{ i18n.t('stats.lead') }}</p>
-  </header>
+  <app-page-intro [heading]="i18n.t('stats.title')" [lead]="i18n.t('stats.lead')" />
 
   @if (players(); as players) {
     @if (players.length) {

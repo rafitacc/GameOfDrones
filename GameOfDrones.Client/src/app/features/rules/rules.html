@@ -1,9 +1,9 @@
 <main class="page rules">
-  <header class="rules__intro">
-    <a class="text-link" routerLink="/">{{ i18n.t('common.back') }}</a>
-    <h1 class="rules__title">{{ i18n.t('rules.title') }}</h1>
-    <p class="rules__lead">{{ i18n.t('rules.lead') }}</p>
-  </header>
+  <app-page-intro
+    class="rules__intro"
+    [heading]="i18n.t('rules.title')"
+    [lead]="i18n.t('rules.lead')"
+  />
 
   @if (saved()) {
     <section class="rules__moves" [attr.aria-label]="i18n.t('rules.moves')">
@@ -34,7 +34,9 @@
               "
               (click)="removeMove(move.id)"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
             </button>
           </div>
 
@@ -63,7 +65,7 @@
                       [disabled]="killedBy"
                       (change)="toggleKill(move.id, other.id)"
                     />
-                    <svg class="chip__check" viewBox="0 0 16 16" aria-hidden="true">
+                    <svg class="icon chip__check" viewBox="0 0 16 16" aria-hidden="true">
                       <path d="m3.5 8.5 3 3 6-7" />
                     </svg>
                     <span class="chip__name">{{ otherName }}</span>
@@ -76,7 +78,7 @@
       }
 
       <button type="button" class="add-move" (click)="addMove()">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
         {{ i18n.t('rules.add') }}
       </button>
     </section>
