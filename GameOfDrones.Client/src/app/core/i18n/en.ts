@@ -23,6 +23,8 @@ export const en = {
   'home.step2': 'Each player picks a move while the other looks away.',
   'home.step3': 'The first to win three rounds becomes emperor.',
   'home.start': 'Start',
+  'home.rules': 'Edit rules',
+  'home.stats': 'Stats',
 
   'setup.title': "Enter players' names",
   'setup.player': 'Player {number}',

@@ -25,6 +25,8 @@ export const es: Record<TranslationKey, string> = {
   'home.step2': 'Cada jugador elige su movimiento mientras el otro no mira.',
   'home.step3': 'Quien gane tres rondas primero se convierte en emperador.',
   'home.start': 'Empezar',
+  'home.rules': 'Editar reglas',
+  'home.stats': 'Estadísticas',
 
   'setup.title': 'Nombres de los jugadores',
   'setup.player': 'Jugador {number}',
