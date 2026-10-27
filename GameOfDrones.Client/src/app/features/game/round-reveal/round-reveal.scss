@@ -1,0 +1,226 @@
+// Timeline (ms): cards slam in 0–280 · clash at 300 (matches clashDelayMs) · verdict 380 · button 550.
+$spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$clash: 300ms;
+
+.reveal {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+  padding: clamp(0.5rem, 3vw, 1.5rem) 0;
+  text-align: center;
+}
+
+.reveal__duel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(0.5rem, 3vw, 1.5rem);
+  align-items: center;
+  width: 100%;
+  max-width: 34rem;
+}
+
+.reveal__move {
+  --from: -4rem;
+  --tilt: -8deg;
+
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  min-width: 0;
+  padding: 1.25rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--surface-raised);
+  animation: slam 280ms $spring both;
+
+  &.player-2 {
+    --from: 4rem;
+    --tilt: 8deg;
+  }
+}
+
+.reveal__move--winner {
+  animation:
+    slam 280ms $spring both,
+    triumph 450ms $clash $spring both;
+}
+
+.reveal__move--loser {
+  animation:
+    slam 280ms $spring both,
+    knockback 400ms $clash $ease-out both;
+}
+
+.reveal__move--tie {
+  animation:
+    slam 280ms $spring both,
+    shake 360ms $clash ease-in-out both;
+}
+
+.reveal__player {
+  display: inline-flex;
+  gap: 0.375rem;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reveal__mark {
+  display: grid;
+  place-items: center;
+  width: clamp(3.5rem, 12vw, 4.5rem);
+  height: clamp(3.5rem, 12vw, 4.5rem);
+  border-radius: 50%;
+  background: var(--player);
+  color: var(--on-player);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+  font-weight: 600;
+}
+
+.reveal__name {
+  max-width: 100%;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.reveal__vs {
+  position: relative;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-style: italic;
+  font-weight: 600;
+  animation: pop 300ms 150ms $spring both;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 3rem;
+    height: 3rem;
+    margin: -1.5rem 0 0 -1.5rem;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: shockwave 450ms $clash ease-out both;
+  }
+}
+
+.reveal__verdict {
+  --player: var(--gold);
+
+  animation: verdict 400ms 380ms $spring both;
+
+  h2 {
+    color: var(--player);
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+  }
+
+  &.player-1 {
+    --player: var(--p1);
+  }
+
+  &.player-2 {
+    --player: var(--p2);
+  }
+}
+
+.reveal__continue {
+  min-width: 12rem;
+  animation: rise 250ms 550ms $ease-out both;
+}
+
+@keyframes slam {
+  from {
+    opacity: 0;
+    translate: var(--from) 0;
+    rotate: var(--tilt);
+    scale: 0.85;
+  }
+}
+
+@keyframes triumph {
+  40% {
+    scale: 1.14;
+  }
+
+  to {
+    scale: 1.06;
+    border-color: var(--player);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--player) 25%, transparent);
+  }
+}
+
+@keyframes knockback {
+  30% {
+    translate: calc(var(--from) * 0.25) 0;
+    rotate: var(--tilt);
+  }
+
+  to {
+    scale: 0.9;
+    rotate: calc(var(--tilt) * 0.5);
+    filter: grayscale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes shake {
+  20%,
+  60% {
+    translate: -0.375rem 0;
+  }
+
+  40%,
+  80% {
+    translate: 0.375rem 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.2;
+  }
+}
+
+@keyframes shockwave {
+  from {
+    opacity: 0.9;
+    scale: 0.5;
+  }
+
+  to {
+    opacity: 0;
+    scale: 3;
+  }
+}
+
+@keyframes verdict {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}

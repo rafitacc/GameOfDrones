@@ -11,5 +11,10 @@ export const routes: Routes = [
     title: 'title.setup',
     loadComponent: () => import('./features/setup/setup').then((m) => m.Setup),
   },
+  {
+    path: 'games/:id',
+    title: 'title.game',
+    loadComponent: () => import('./features/game/game').then((m) => m.GamePage),
+  },
   { path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,20 @@
+<section class="handoff">
+  <p class="eyebrow">{{ i18n.t('game.round', { number: round() }) }}</p>
+
+  <p class="handoff__locked">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+    {{ i18n.t('handoff.lockedIn', { name: previousPlayer() }) }}
+  </p>
+
+  <div class="handoff__avatar" aria-hidden="true">{{ nextPlayer().charAt(0) }}</div>
+
+  <h2 class="handoff__title">{{ i18n.t('game.turn', { name: nextPlayer() }) }}</h2>
+  <p class="handoff__hint">
+    {{ i18n.t('handoff.passTo', { name: nextPlayer() }) }}
+    {{ i18n.t('game.lookAway', { name: previousPlayer() }) }}
+  </p>
+
+  <button #readyButton class="button button--player" type="button" (click)="ready.emit()">
+    {{ i18n.t('handoff.ready', { name: nextPlayer() }) }}
+  </button>
+</section>
