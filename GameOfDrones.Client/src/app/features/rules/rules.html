@@ -1,0 +1,130 @@
+<main class="page rules">
+  <header class="rules__intro">
+    <a class="text-link" routerLink="/">{{ i18n.t('common.back') }}</a>
+    <h1 class="rules__title">{{ i18n.t('rules.title') }}</h1>
+    <p class="rules__lead">{{ i18n.t('rules.lead') }}</p>
+  </header>
+
+  @if (saved()) {
+    <section class="rules__moves" [attr.aria-label]="i18n.t('rules.moves')">
+      @for (move of drafts(); track move.id; let index = $index) {
+        <article class="card move-card">
+          <div class="move-card__header">
+            <span class="move-card__number" aria-hidden="true">{{ index + 1 }}</span>
+            <input
+              #nameInput
+              class="move-card__name"
+              type="text"
+              [value]="move.name"
+              [attr.maxlength]="moveNameMaxLength"
+              [placeholder]="i18n.t('rules.namePlaceholder')"
+              [attr.aria-label]="i18n.t('rules.nameLabel', { number: index + 1 })"
+              autocomplete="off"
+              (input)="rename(move.id, nameInput.value)"
+            />
+            <button
+              type="button"
+              class="move-card__remove"
+              [disabled]="!canRemove()"
+              [attr.aria-label]="i18n.t('rules.remove', { number: index + 1 })"
+              [title]="
+                canRemove()
+                  ? i18n.t('rules.remove', { number: index + 1 })
+                  : i18n.t('rules.minimum', { count: minimumMoves })
+              "
+              (click)="removeMove(move.id)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+          </div>
+
+          <fieldset class="move-card__kills">
+            <legend class="eyebrow">{{ i18n.t('rules.kills') }}</legend>
+            <div class="chips">
+              @for (other of drafts(); track other.id) {
+                @if (other.id !== move.id) {
+                  @let otherName = other.name.trim() || i18n.t('rules.unnamed');
+                  @let killedBy = other.kills.includes(move.id);
+                  <label
+                    class="chip"
+                    [class.chip--blocked]="killedBy"
+                    [title]="
+                      killedBy
+                        ? i18n.t('rules.alreadyKills', {
+                            winner: otherName,
+                            loser: move.name.trim() || i18n.t('rules.unnamed'),
+                          })
+                        : ''
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      [checked]="move.kills.includes(other.id)"
+                      [disabled]="killedBy"
+                      (change)="toggleKill(move.id, other.id)"
+                    />
+                    <svg class="chip__check" viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="m3.5 8.5 3 3 6-7" />
+                    </svg>
+                    <span class="chip__name">{{ otherName }}</span>
+                  </label>
+                }
+              }
+            </div>
+          </fieldset>
+        </article>
+      }
+
+      <button type="button" class="add-move" (click)="addMove()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+        {{ i18n.t('rules.add') }}
+      </button>
+    </section>
+
+    <aside class="card rules__panel">
+      <h2 class="eyebrow">{{ i18n.t('rules.summary') }}</h2>
+      <ul class="rules__summary">
+        @for (line of summary(); track $index) {
+          <li>{{ line }}</li>
+        }
+      </ul>
+
+      <app-error-alert [messages]="errors()" />
+      @if (notice(); as notice) {
+        <p class="rules__notice" role="status">{{ i18n.t(notice) }}</p>
+      }
+
+      @if (confirmingReset()) {
+        <div class="rules__confirm" role="alertdialog" aria-labelledby="reset-question">
+          <p id="reset-question">{{ i18n.t('rules.resetQuestion') }}</p>
+          <div class="rules__actions">
+            <button type="button" class="button button--ghost" (click)="confirmingReset.set(false)">
+              {{ i18n.t('rules.cancel') }}
+            </button>
+            <button type="button" class="button" [disabled]="busy()" (click)="reset()">
+              {{ i18n.t('rules.resetConfirm') }}
+            </button>
+          </div>
+        </div>
+      } @else {
+        <div class="rules__actions">
+          <button
+            type="button"
+            class="button button--ghost"
+            [disabled]="busy()"
+            (click)="confirmingReset.set(true)"
+          >
+            {{ i18n.t('rules.reset') }}
+          </button>
+          <button type="button" class="button" [disabled]="busy() || !dirty()" (click)="save()">
+            {{ busy() ? i18n.t('rules.saving') : i18n.t('rules.save') }}
+          </button>
+        </div>
+      }
+    </aside>
+  } @else if (errors().length) {
+    <app-error-alert [messages]="errors()" />
+  } @else {
+    <p class="rules__status">{{ i18n.t('rules.loading') }}</p>
+  }
+</main>

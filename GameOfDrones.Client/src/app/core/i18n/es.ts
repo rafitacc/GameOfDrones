@@ -6,6 +6,9 @@ export const es: Record<TranslationKey, string> = {
   'title.setup': 'Jugadores · Game of Drones',
   'title.game': 'Batalla · Game of Drones',
   'title.winner': 'Ganador · Game of Drones',
+  'title.rules': 'Reglas · Game of Drones',
+
+  'common.back': 'Volver',
 
   'header.home': 'Inicio de Game of Drones',
   'header.language': 'Idioma',
@@ -27,7 +30,6 @@ export const es: Record<TranslationKey, string> = {
   'setup.nameRequired': 'Escribe un nombre para el Jugador {number}.',
   'setup.start': 'Empezar partida',
   'setup.starting': 'Empezando…',
-  'setup.back': 'Volver',
 
   'game.round': 'Ronda {number}',
   'game.firstTo': 'Gana quien llegue a {wins}',
@@ -62,6 +64,32 @@ export const es: Record<TranslationKey, string> = {
   'winner.rounds': '{rounds} rondas jugadas',
   'winner.playAgain': 'Jugar otra vez',
   'winner.loading': 'Cargando resultado…',
+
+  'rules.title': 'Reglas',
+  'rules.lead':
+    'Añade movimientos, cámbiales el nombre y elige a cuáles mata cada uno. Las reglas nuevas se aplican desde la siguiente partida.',
+  'rules.moves': 'Movimientos',
+  'rules.nameLabel': 'Nombre del movimiento {number}',
+  'rules.namePlaceholder': 'Nombre del movimiento',
+  'rules.unnamed': 'Movimiento sin nombre',
+  'rules.remove': 'Quitar el movimiento {number}',
+  'rules.minimum': 'Una partida necesita al menos {count} movimientos.',
+  'rules.kills': 'Mata a',
+  'rules.alreadyKills': '{winner} ya mata a {loser}.',
+  'rules.add': 'Añadir movimiento',
+  'rules.summary': 'Resumen',
+  'rules.summaryKills': '{move} mata a {targets}.',
+  'rules.summaryNothing': '{move} no mata a nadie.',
+  'rules.save': 'Guardar reglas',
+  'rules.saving': 'Guardando…',
+  'rules.saved': 'Reglas guardadas.',
+  'rules.reset': 'Restaurar por defecto',
+  'rules.resetQuestion':
+    '¿Volver a Paper, Rock y Scissors? Se perderán tus movimientos personalizados.',
+  'rules.resetConfirm': 'Restaurar',
+  'rules.cancel': 'Cancelar',
+  'rules.restored': 'Reglas por defecto restauradas.',
+  'rules.loading': 'Cargando reglas…',
 
   'error.unexpected': 'Error inesperado. Inténtalo de nuevo.',
   'error.unreachable':
