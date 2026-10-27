@@ -20,6 +20,15 @@
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Messages.resx">
+      <StronglyTypedFileName>$(IntermediateOutputPath)Messages.Designer.cs</StronglyTypedFileName>
+      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedNamespace>GameOfDrones.Server.Resources</StronglyTypedNamespace>
+      <StronglyTypedClassName>Messages</StronglyTypedClassName>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <Target Name="EnsureClientDependencies" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules')">
     <Exec Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="NodeExitCode" />

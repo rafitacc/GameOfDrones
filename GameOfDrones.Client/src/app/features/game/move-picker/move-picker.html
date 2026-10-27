@@ -1,0 +1,26 @@
+<form class="move-picker" (submit)="confirm($event)">
+  <fieldset class="move-picker__moves" [disabled]="disabled()">
+    <legend class="eyebrow move-picker__legend">{{ i18n.t('game.selectMove') }}</legend>
+    @for (move of moves(); track move.name) {
+      <label class="move-tile" [class.move-tile--selected]="selected() === move.name">
+        <input
+          type="radio"
+          name="move"
+          [value]="move.name"
+          [checked]="selected() === move.name"
+          (change)="selected.set(move.name)"
+        />
+        <span class="move-tile__mark" aria-hidden="true">{{ move.name.charAt(0) }}</span>
+        <span class="move-tile__name">{{ move.name }}</span>
+      </label>
+    }
+  </fieldset>
+
+  <button
+    class="button button--player move-picker__confirm"
+    type="submit"
+    [disabled]="disabled() || selected() === null"
+  >
+    {{ i18n.t('game.lockIn') }}
+  </button>
+</form>

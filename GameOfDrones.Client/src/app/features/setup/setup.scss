@@ -1,0 +1,70 @@
+.setup {
+  display: grid;
+  place-items: center;
+  min-height: calc(100dvh - 6rem);
+}
+
+.setup__card {
+  display: grid;
+  gap: 1.75rem;
+  width: min(100%, 44rem);
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.setup__title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+}
+
+.setup__players {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.setup__actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.name-field {
+  display: grid;
+  gap: 0.5rem;
+
+  input {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0 1rem;
+    border: 1px solid var(--line);
+    border-radius: 0.875rem;
+    background: var(--surface-raised);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    transition:
+      border-color 160ms ease-out,
+      box-shadow 160ms ease-out;
+
+    &:focus {
+      outline: none;
+      border-color: var(--player);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--player) 18%, transparent);
+    }
+  }
+}
+
+.name-field__label {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.name-field__error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  font-weight: 600;
+}

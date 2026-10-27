@@ -1,0 +1,59 @@
+@if (session.game(); as game) {
+  @if (!game.winnerName) {
+    <main class="page game">
+      <section class="card turn" [class]="cardCss()" aria-live="polite">
+        @switch (session.stage()) {
+          @case ('handoff') {
+            <app-turn-handoff
+              [round]="session.roundNumber()"
+              [nextPlayer]="game.player2Name"
+              [previousPlayer]="game.player1Name"
+              (ready)="session.startPlayer2Turn()"
+            />
+          }
+          @case ('reveal') {
+            <app-round-reveal [game]="game" (continued)="session.nextRound()" />
+          }
+          @default {
+            @let turn = picking()!;
+            <header class="turn__header">
+              <h1 class="turn__round">
+                {{ i18n.t('game.round', { number: session.roundNumber() }) }}
+              </h1>
+              <p class="eyebrow">{{ i18n.t('game.firstTo', { wins: winsToFinish }) }}</p>
+            </header>
+
+            <div class="turn__player">
+              <span class="player-dot"></span>
+              <p class="turn__name">{{ i18n.t('game.turn', { name: turn.current }) }}</p>
+            </div>
+            <p class="turn__hint">{{ i18n.t('game.lookAway', { name: turn.other }) }}</p>
+
+            <app-move-picker
+              [playerName]="turn.current"
+              [moves]="session.moves()"
+              [disabled]="session.sending()"
+              (chosen)="session.choose($event)"
+            />
+          }
+        }
+
+        <app-error-alert [messages]="session.errors()" />
+      </section>
+
+      <aside class="game__side">
+        <app-scoreboard [game]="game" />
+        <a class="text-link" routerLink="/">{{ i18n.t('game.leave') }}</a>
+      </aside>
+    </main>
+  }
+} @else {
+  <main class="page game-status">
+    @if (session.errors().length) {
+      <app-error-alert [messages]="session.errors()" />
+      <a class="button" routerLink="/">{{ i18n.t('game.newGame') }}</a>
+    } @else {
+      <p>{{ i18n.t('game.loading') }}</p>
+    }
+  </main>
+}

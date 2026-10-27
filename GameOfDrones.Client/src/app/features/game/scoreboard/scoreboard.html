@@ -1,0 +1,53 @@
+<section class="card scoreboard" aria-labelledby="score-title">
+  <h2 id="score-title" class="eyebrow">{{ i18n.t('score.title') }}</h2>
+
+  <dl class="tally">
+    @for (player of players(); track player.css) {
+      <div class="tally__player" [class]="player.css">
+        <dt [title]="player.name">
+          <span class="player-dot"></span>
+          <span class="tally__name">{{ player.name }}</span>
+        </dt>
+        <dd>
+          <span class="tally__wins">{{ player.wins }}</span>
+          <span
+            class="tally__pips"
+            [attr.aria-label]="i18n.t('score.wins', { wins: player.wins, needed: pips.length })"
+          >
+            @for (pip of pips; track pip) {
+              <span class="tally__pip" [class.tally__pip--won]="pip < player.wins"></span>
+            }
+          </span>
+        </dd>
+      </div>
+    }
+  </dl>
+
+  @if (game().rounds.length) {
+    <table class="rounds">
+      <thead>
+        <tr>
+          <th scope="col">{{ i18n.t('score.round') }}</th>
+          <th scope="col">{{ i18n.t('score.winner') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (round of game().rounds; track round.number) {
+          <tr>
+            <td>{{ round.number }}</td>
+            @if (round.winnerName; as winner) {
+              <td class="rounds__winner" [class]="winnerCss().get(winner)">
+                <span class="player-dot"></span>
+                {{ winner }}
+              </td>
+            } @else {
+              <td class="rounds__tie">{{ i18n.t('score.tie') }}</td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p class="scoreboard__empty">{{ i18n.t('score.empty') }}</p>
+  }
+</section>

@@ -1,0 +1,91 @@
+.move-picker {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.move-picker__moves {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.move-picker__legend {
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+.move-picker__confirm {
+  justify-self: start;
+  min-width: 12rem;
+}
+
+.move-tile {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface-raised);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease-out,
+    background-color 160ms ease-out,
+    transform 160ms ease-out;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--player) 50%, var(--line));
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--player);
+    outline-offset: 3px;
+  }
+}
+
+.move-tile--selected {
+  border-color: var(--player);
+  background: color-mix(in srgb, var(--player) 9%, var(--surface-raised));
+  transform: translateY(-2px);
+
+  .move-tile__mark {
+    background: var(--player);
+    color: var(--on-player);
+  }
+}
+
+.move-tile__mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--player) 12%, transparent);
+  color: var(--player);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition:
+    background-color 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.move-tile__name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 30rem) {
+  .move-picker__confirm {
+    justify-self: stretch;
+  }
+}

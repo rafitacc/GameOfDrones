@@ -1,0 +1,45 @@
+@if (game(); as game) {
+  <main class="page winner" [class]="winnerIsPlayer1() ? 'player-1' : 'player-2'">
+    <section class="card winner__card">
+      <p class="winner__eyebrow">{{ i18n.t('winner.eyebrow') }}</p>
+
+      <div class="winner__crowned">
+        <svg class="winner__crown" viewBox="0 0 64 40" aria-hidden="true">
+          <path d="M4 14 18 24 32 4l14 20 14-10-6 24H10Z" />
+          <circle cx="4" cy="12" r="3.5" />
+          <circle cx="32" cy="4" r="3.5" />
+          <circle cx="60" cy="12" r="3.5" />
+        </svg>
+        <h1 class="winner__name">{{ game.winnerName }}</h1>
+      </div>
+
+      <p class="winner__title">
+        {{ i18n.t('winner.title') }}
+        <em class="winner__emperor">{{ i18n.t('winner.emperor') }}</em>
+      </p>
+
+      <dl class="winner__score">
+        <div class="player-1">
+          <dt><span class="player-dot"></span>{{ game.player1Name }}</dt>
+          <dd>{{ game.player1Wins }}</dd>
+        </div>
+        <div class="player-2">
+          <dt><span class="player-dot"></span>{{ game.player2Name }}</dt>
+          <dd>{{ game.player2Wins }}</dd>
+        </div>
+      </dl>
+      <p class="winner__rounds">{{ i18n.t('winner.rounds', { rounds: game.rounds.length }) }}</p>
+
+      <a class="button winner__again" routerLink="/">{{ i18n.t('winner.playAgain') }}</a>
+    </section>
+  </main>
+} @else {
+  <main class="page winner-status">
+    @if (errors().length) {
+      <app-error-alert [messages]="errors()" />
+      <a class="button" routerLink="/">{{ i18n.t('winner.playAgain') }}</a>
+    } @else {
+      <p>{{ i18n.t('winner.loading') }}</p>
+    }
+  </main>
+}
