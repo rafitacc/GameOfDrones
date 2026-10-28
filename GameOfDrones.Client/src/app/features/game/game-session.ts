@@ -73,6 +73,9 @@ export class GameSession {
       error: (error: unknown) => {
         this.errors.set(errorMessages(error, this.i18n));
         this.sending.set(false);
+        if (hasStatus(error, HttpStatusCode.Conflict)) {
+          this.restartRound(game.id);
+        }
       },
     });
   }
@@ -85,4 +88,10 @@ export class GameSession {
     this.stage.set('player1');
   }
 
+  /** Another tab played this round first: show the saved score and pick again from player 1. */
+  private restartRound(id: number): void {
+    this.player1Move = null;
+    this.stage.set('player1');
+    this.gameApi.get(id).subscribe((game) => this.game.set(game));
+  }
 }
