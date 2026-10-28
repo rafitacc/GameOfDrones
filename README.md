@@ -21,7 +21,7 @@ Built with **ASP.NET Core (.NET 10)**, **Entity Framework Core** on **SQL Server
 
 ## Requirements
 
-- **Visual Studio 2026** with the **ASP.NET and web development** workload, including its **SQL Server Express LocalDB** component. Visual Studio 2026 is needed for .NET 10 and the `.slnx` solution format.
+- **Visual Studio 2026** with the **ASP.NET and web development** workload, including its **SQL Server Express LocalDB** component. Visual Studio 2026 is needed for .NET 10, which Visual Studio 2022 does not support.
 - **Node.js** 22.22.3 or later 22.x, 24.15 or later 24.x, or 26 and later. These are the versions Angular 22 supports.
 
 Without Visual Studio you need the **.NET 10 SDK**, Node.js and any SQL Server instance.
@@ -41,6 +41,8 @@ dotnet run --project GameOfDrones.Server --launch-profile https
 
 Then open https://localhost:7017, or http://localhost:5240 with the `http` profile. The server starts the Angular dev server for you (SpaProxy) and redirects the browser to it once it is ready, so there is nothing else to launch.
 
+On macOS or Linux, trust the ASP.NET Core development certificate once with `dotnet dev-certs https --trust`, or use the `http` profile.
+
 ### Use another SQL Server
 
 `appsettings.Development.json` points to LocalDB. To use another server, for example SQL Server in Docker on macOS or Linux, override the connection string with User Secrets, which stay outside the repository:
@@ -59,8 +61,11 @@ dotnet test
 
 ```bash
 cd GameOfDrones.Client
+npm install
 npm test -- --watch=false
 ```
+
+Skip `npm install` if the server has already been built once, because that build installs the client dependencies.
 
 7 Vitest tests cover the game session (player 1's move stays hidden, the deciding round, conflicts, missing games) and the rules editor (renaming and removing moves keeps the rule set consistent).
 
