@@ -4,12 +4,12 @@ import { errorMessages } from '../../core/api/error-messages';
 import { PlayerApi } from '../../core/api/player-api';
 import { I18n } from '../../core/i18n/i18n';
 import { PlayerStats } from '../../core/models/player-stats';
-import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { LoadState } from '../../shared/load-state/load-state';
 import { PageIntro } from '../../shared/page-intro/page-intro';
 
 @Component({
   selector: 'app-stats',
-  imports: [RouterLink, ErrorAlert, PageIntro],
+  imports: [RouterLink, LoadState, PageIntro],
   templateUrl: './stats.html',
   styleUrl: './stats.scss',
 })

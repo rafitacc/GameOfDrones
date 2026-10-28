@@ -64,16 +64,11 @@
 }
 
 .move-tile__mark {
-  display: grid;
-  place-items: center;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
   background: color-mix(in srgb, var(--player) 12%, transparent);
   color: var(--player);
-  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
   transition:
     background-color 160ms ease-out,
     color 160ms ease-out;

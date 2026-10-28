@@ -38,7 +38,6 @@
     margin: 1.25rem 0 0;
     padding: 0;
     list-style: none;
-    counter-reset: step;
   }
 
   li {
@@ -46,17 +45,11 @@
     grid-template-columns: 2.25rem 1fr;
     gap: 1rem;
     align-items: baseline;
-    counter-increment: step;
     font-size: 1.0625rem;
+  }
 
-    &::before {
-      content: counter(step);
-      color: var(--gold);
-      font-family: var(--font-display);
-      font-size: 1.75rem;
-      font-style: italic;
-      line-height: 1;
-    }
+  .numeral {
+    font-size: 1.75rem;
   }
 }
 

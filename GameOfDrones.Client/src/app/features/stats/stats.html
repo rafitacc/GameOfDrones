@@ -4,10 +4,10 @@
   @if (players(); as players) {
     @if (players.length) {
       <section class="card stats__card">
-        <table class="leaderboard">
+        <table class="data-table leaderboard">
           <thead>
             <tr>
-              <th scope="col" class="leaderboard__rank">#</th>
+              <th scope="col" class="numeral leaderboard__rank">#</th>
               <th scope="col">{{ i18n.t('stats.player') }}</th>
               <th scope="col" class="leaderboard__number">{{ i18n.t('stats.won') }}</th>
               <th scope="col" class="leaderboard__number">{{ i18n.t('stats.played') }}</th>
@@ -16,8 +16,8 @@
           <tbody>
             @for (player of players; track player.name; let index = $index) {
               <tr [class.leaderboard__leader]="index === 0">
-                <td class="leaderboard__rank">{{ index + 1 }}</td>
-                <th scope="row" class="leaderboard__name">{{ player.name }}</th>
+                <td class="numeral leaderboard__rank">{{ index + 1 }}</td>
+                <th scope="row" class="truncate leaderboard__name">{{ player.name }}</th>
                 <td class="leaderboard__number leaderboard__won">{{ player.gamesWon }}</td>
                 <td class="leaderboard__number">{{ player.gamesPlayed }}</td>
               </tr>
@@ -32,9 +32,7 @@
         <a class="button" routerLink="/players">{{ i18n.t('home.start') }}</a>
       </section>
     }
-  } @else if (errors().length) {
-    <app-error-alert [messages]="errors()" />
   } @else {
-    <p class="stats__status">{{ i18n.t('stats.loading') }}</p>
+    <app-load-state [errors]="errors()" [loading]="i18n.t('stats.loading')" />
   }
 </main>

@@ -10,7 +10,7 @@
           [checked]="selected() === move.name"
           (change)="selected.set(move.name)"
         />
-        <span class="move-tile__mark" aria-hidden="true">{{ move.name.charAt(0) }}</span>
+        <span class="move-mark move-tile__mark" aria-hidden="true">{{ move.name.charAt(0) }}</span>
         <span class="move-tile__name">{{ move.name }}</span>
       </label>
     }

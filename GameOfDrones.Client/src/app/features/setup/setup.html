@@ -7,11 +7,12 @@
         @let control = form.controls[player.control];
         @let label = i18n.t('setup.player', { number: player.number });
         <label class="name-field" [class]="player.css">
-          <span class="name-field__label">
+          <span class="player-label">
             <span class="player-dot"></span>
             {{ label }}
           </span>
           <input
+            class="text-input"
             type="text"
             [formControlName]="player.control"
             [attr.maxlength]="nameMaxLength"

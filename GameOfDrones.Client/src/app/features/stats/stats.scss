@@ -4,36 +4,14 @@
   align-items: start;
 }
 
-.stats__status {
-  color: var(--muted);
-}
-
 .stats__card {
   padding: 0.5rem clamp(1rem, 4vw, 2rem);
 }
 
 .leaderboard {
-  width: 100%;
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
-
   th,
   td {
     padding: 1rem 0.5rem;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-  }
-
-  thead th {
-    color: var(--muted);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  tbody tr:last-child > * {
-    border-bottom: 0;
   }
 
   .leaderboard__number {
@@ -45,17 +23,12 @@
 .leaderboard__rank {
   width: 2.5rem;
   color: var(--muted);
-  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-style: italic;
 }
 
 .leaderboard__name {
   max-width: 0;
-  overflow: hidden;
   font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .leaderboard__won {

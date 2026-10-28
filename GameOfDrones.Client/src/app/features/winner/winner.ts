@@ -14,12 +14,12 @@ import { errorMessages } from '../../core/api/error-messages';
 import { GameApi } from '../../core/api/game-api';
 import { I18n } from '../../core/i18n/i18n';
 import { Game } from '../../core/models/game';
-import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { LoadState } from '../../shared/load-state/load-state';
 import { celebrate } from '../../shared/confetti/confetti';
 
 @Component({
   selector: 'app-winner',
-  imports: [RouterLink, ErrorAlert],
+  imports: [RouterLink, LoadState],
   templateUrl: './winner.html',
   styleUrl: './winner.scss',
 })
