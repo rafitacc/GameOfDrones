@@ -4,9 +4,9 @@
   <dl class="tally">
     @for (player of players(); track player.css) {
       <div class="tally__player" [class]="player.css">
-        <dt [title]="player.name">
+        <dt class="player-label" [title]="player.name">
           <span class="player-dot"></span>
-          <span class="tally__name">{{ player.name }}</span>
+          <span class="truncate">{{ player.name }}</span>
         </dt>
         <dd>
           <span class="tally__wins">{{ player.wins }}</span>
@@ -24,7 +24,7 @@
   </dl>
 
   @if (game().rounds.length) {
-    <table class="rounds">
+    <table class="data-table rounds">
       <thead>
         <tr>
           <th scope="col">{{ i18n.t('score.round') }}</th>

@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withFetch(), withInterceptors([languageInterceptor])),
-    { provide: TitleStrategy, useClass: TranslatedTitleStrategy },
+    { provide: TitleStrategy, useExisting: TranslatedTitleStrategy },
   ],
 };

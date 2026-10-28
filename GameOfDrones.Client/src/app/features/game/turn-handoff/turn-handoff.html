@@ -2,7 +2,9 @@
   <p class="eyebrow">{{ i18n.t('game.round', { number: round() }) }}</p>
 
   <p class="handoff__locked">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m5 12.5 4.5 4.5L19 7.5" />
+    </svg>
     {{ i18n.t('handoff.lockedIn', { name: previousPlayer() }) }}
   </p>
 

@@ -4,10 +4,6 @@
   align-items: start;
 }
 
-.rules__status {
-  color: var(--muted);
-}
-
 .rules__moves {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
@@ -30,38 +26,7 @@
 
 .move-card__number {
   min-width: 1.5rem;
-  color: var(--gold);
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-style: italic;
-  line-height: 1;
-}
-
-.move-card__name {
-  width: 100%;
-  min-height: 2.75rem;
-  padding: 0 0.875rem;
-  border: 1px solid var(--line);
-  border-radius: 0.75rem;
-  background: var(--surface-raised);
-  color: var(--ink);
-  font: inherit;
-  font-size: 1.0625rem;
-  font-weight: 700;
-  transition:
-    border-color 160ms ease-out,
-    box-shadow 160ms ease-out;
-
-  &::placeholder {
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--ink);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 10%, transparent);
-  }
 }
 
 .move-card__remove {
@@ -170,12 +135,6 @@
     opacity 160ms ease-out;
 }
 
-.chip__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .add-move {
   display: flex;
   gap: 0.5rem;
@@ -203,6 +162,11 @@
   display: grid;
   gap: 1.25rem;
   padding: 1.5rem;
+}
+
+.rules__overview {
+  display: grid;
+  gap: 1.25rem;
 }
 
 .rules__summary {
@@ -259,6 +223,20 @@
 
   .button {
     flex: 1 1 auto;
+  }
+}
+
+// On small screens the cards already show every rule, so the panel keeps only the
+// messages and actions and stays in reach at the bottom while the list scrolls.
+@media (width < 60rem) {
+  .rules__panel {
+    position: sticky;
+    bottom: 0.75rem;
+    z-index: 1;
+  }
+
+  .rules__overview {
+    display: none;
   }
 }
 

@@ -1,6 +1,6 @@
 @if (game(); as game) {
-  <main class="page winner" [class]="winnerIsPlayer1() ? 'player-1' : 'player-2'">
-    <section class="card winner__card">
+  <main class="page page--center" [class]="winnerIsPlayer1() ? 'player-1' : 'player-2'">
+    <section class="card spotlight winner__card">
       <p class="winner__eyebrow">{{ i18n.t('winner.eyebrow') }}</p>
 
       <div class="winner__crowned">
@@ -20,11 +20,11 @@
 
       <dl class="winner__score">
         <div class="player-1">
-          <dt><span class="player-dot"></span>{{ game.player1Name }}</dt>
+          <dt class="player-label"><span class="player-dot"></span>{{ game.player1Name }}</dt>
           <dd>{{ game.player1Wins }}</dd>
         </div>
         <div class="player-2">
-          <dt><span class="player-dot"></span>{{ game.player2Name }}</dt>
+          <dt class="player-label"><span class="player-dot"></span>{{ game.player2Name }}</dt>
           <dd>{{ game.player2Wins }}</dd>
         </div>
       </dl>
@@ -37,13 +37,12 @@
       </nav>
     </section>
   </main>
+} @else if (notFound()) {
+  <app-not-found />
 } @else {
-  <main class="page winner-status">
-    @if (errors().length) {
-      <app-error-alert [messages]="errors()" />
+  <main class="page">
+    <app-load-state [errors]="errors()" [loading]="i18n.t('winner.loading')">
       <a class="button" routerLink="/">{{ i18n.t('winner.playAgain') }}</a>
-    } @else {
-      <p>{{ i18n.t('winner.loading') }}</p>
-    }
+    </app-load-state>
   </main>
 }

@@ -16,6 +16,7 @@ import { TranslationKey } from '../../core/i18n/en';
 import { I18n } from '../../core/i18n/i18n';
 import { Move, minimumMoves, moveNameMaxLength } from '../../core/models/move';
 import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { LoadState } from '../../shared/load-state/load-state';
 import { PageIntro } from '../../shared/page-intro/page-intro';
 
 /** Kills point to ids instead of names, so renaming a move keeps every rule that uses it. */
@@ -27,7 +28,7 @@ interface DraftMove {
 
 @Component({
   selector: 'app-rules',
-  imports: [ErrorAlert, PageIntro],
+  imports: [ErrorAlert, LoadState, PageIntro],
   templateUrl: './rules.html',
   styleUrl: './rules.scss',
 })

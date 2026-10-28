@@ -10,10 +10,10 @@
       @for (move of drafts(); track move.id; let index = $index) {
         <article class="card move-card">
           <div class="move-card__header">
-            <span class="move-card__number" aria-hidden="true">{{ index + 1 }}</span>
+            <span class="numeral move-card__number" aria-hidden="true">{{ index + 1 }}</span>
             <input
               #nameInput
-              class="move-card__name"
+              class="text-input"
               type="text"
               [value]="move.name"
               [attr.maxlength]="moveNameMaxLength"
@@ -68,7 +68,7 @@
                     <svg class="icon chip__check" viewBox="0 0 16 16" aria-hidden="true">
                       <path d="m3.5 8.5 3 3 6-7" />
                     </svg>
-                    <span class="chip__name">{{ otherName }}</span>
+                    <span class="truncate">{{ otherName }}</span>
                   </label>
                 }
               }
@@ -84,12 +84,14 @@
     </section>
 
     <aside class="card rules__panel">
-      <h2 class="eyebrow">{{ i18n.t('rules.summary') }}</h2>
-      <ul class="rules__summary">
-        @for (line of summary(); track $index) {
-          <li>{{ line }}</li>
-        }
-      </ul>
+      <div class="rules__overview">
+        <h2 class="eyebrow">{{ i18n.t('rules.summary') }}</h2>
+        <ul class="rules__summary">
+          @for (line of summary(); track $index) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+      </div>
 
       <app-error-alert [messages]="errors()" />
       @if (notice(); as notice) {
@@ -124,9 +126,7 @@
         </div>
       }
     </aside>
-  } @else if (errors().length) {
-    <app-error-alert [messages]="errors()" />
   } @else {
-    <p class="rules__status">{{ i18n.t('rules.loading') }}</p>
+    <app-load-state [errors]="errors()" [loading]="i18n.t('rules.loading')" />
   }
 </main>

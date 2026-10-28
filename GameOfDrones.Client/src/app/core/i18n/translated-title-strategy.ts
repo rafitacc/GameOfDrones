@@ -22,4 +22,9 @@ export class TranslatedTitleStrategy extends TitleStrategy {
       this.key.set(key as TranslationKey);
     }
   }
+
+  /** For screens that replace their route's content, like the 404 shown for a missing game. */
+  show(key: TranslationKey): void {
+    this.key.set(key);
+  }
 }

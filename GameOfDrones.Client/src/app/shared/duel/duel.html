@@ -1,0 +1,20 @@
+<div class="duel">
+  @for (side of sides(); track side.css; let first = $first) {
+    <div class="duel__move" [class]="[side.css, 'duel__move--' + side.result]">
+      <span class="player-label duel__label">
+        <span class="player-dot"></span>
+        <span class="truncate">{{ side.label }}</span>
+      </span>
+      <span class="move-mark duel__mark" aria-hidden="true">{{ side.mark }}</span>
+      <span class="duel__name">{{ side.move }}</span>
+    </div>
+    @if (first) {
+      <span class="duel__vs" aria-hidden="true">vs</span>
+    }
+  }
+</div>
+
+<div class="duel__verdict" [class]="verdict().css">
+  <h2>{{ verdict().title }}</h2>
+  <p>{{ verdict().detail }}</p>
+</div>

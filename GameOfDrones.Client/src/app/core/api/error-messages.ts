@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { I18n } from '../i18n/i18n';
 
 interface ProblemDetails {
@@ -29,4 +29,8 @@ export function errorMessages(error: unknown, i18n: I18n): string[] {
   }
 
   return [problem?.detail ?? i18n.t('error.status', { status: error.status })];
+}
+
+export function hasStatus(error: unknown, status: HttpStatusCode): boolean {
+  return error instanceof HttpErrorResponse && error.status === status;
 }

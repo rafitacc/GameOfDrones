@@ -1,26 +1,7 @@
 <section class="reveal" role="status">
   <p class="eyebrow">{{ i18n.t('game.round', { number: round().number }) }}</p>
 
-  <div class="reveal__duel">
-    @for (side of sides(); track side.css; let first = $first) {
-      <div class="reveal__move" [class]="[side.css, 'reveal__move--' + side.result]">
-        <span class="reveal__player">
-          <span class="player-dot"></span>
-          {{ side.player }}
-        </span>
-        <span class="reveal__mark" aria-hidden="true">{{ side.move.charAt(0) }}</span>
-        <span class="reveal__name">{{ side.move }}</span>
-      </div>
-      @if (first) {
-        <span class="reveal__vs" aria-hidden="true">vs</span>
-      }
-    }
-  </div>
-
-  <div class="reveal__verdict" [class]="verdict().css">
-    <h2>{{ verdict().title }}</h2>
-    <p>{{ verdict().detail }}</p>
-  </div>
+  <app-duel [sides]="sides()" [verdict]="verdict()" />
 
   <button #continueButton class="button reveal__continue" type="button" (click)="continued.emit()">
     {{ i18n.t('reveal.nextRound') }}

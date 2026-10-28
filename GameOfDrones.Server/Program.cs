@@ -36,16 +36,16 @@ using (var scope = app.Services.CreateScope())
 app.UseRequestLocalization();
 app.UseExceptionHandler();
 
+app.MapControllers();
+app.MapFallback("/api/{**path}", () => Results.Problem(statusCode: StatusCodes.Status404NotFound));
+
+// In development the Angular dev server serves the client through SpaProxy, so there is no wwwroot.
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+    app.MapFallbackToFile("index.html");
 }
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-app.MapControllers();
-app.MapFallback("/api/{**path}", () => Results.Problem(statusCode: StatusCodes.Status404NotFound));
-app.MapFallbackToFile("index.html");
 
 app.Run();

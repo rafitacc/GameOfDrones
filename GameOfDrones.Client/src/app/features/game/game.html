@@ -47,13 +47,12 @@
       </aside>
     </main>
   }
+} @else if (session.notFound()) {
+  <app-not-found />
 } @else {
-  <main class="page game-status">
-    @if (session.errors().length) {
-      <app-error-alert [messages]="session.errors()" />
+  <main class="page">
+    <app-load-state [errors]="session.errors()" [loading]="i18n.t('game.loading')">
       <a class="button" routerLink="/">{{ i18n.t('game.newGame') }}</a>
-    } @else {
-      <p>{{ i18n.t('game.loading') }}</p>
-    }
+    </app-load-state>
   </main>
 }

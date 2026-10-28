@@ -51,4 +51,7 @@
   <data name="InvalidMove" xml:space="preserve">
     <value>'{0}' is not a valid move.</value>
   </data>
+  <data name="ConcurrentChange" xml:space="preserve">
+    <value>Someone else changed this at the same time. Reload and try again.</value>
+  </data>
 </root>

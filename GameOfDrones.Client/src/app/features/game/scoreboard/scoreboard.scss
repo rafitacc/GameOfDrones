@@ -30,15 +30,6 @@
   border-radius: 1rem;
   background: var(--surface-raised);
 
-  dt {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    min-width: 0;
-    font-size: 0.875rem;
-    font-weight: 700;
-  }
-
   dd {
     display: flex;
     gap: 0.75rem;
@@ -46,12 +37,6 @@
     justify-content: space-between;
     margin: 0;
   }
-}
-
-.tally__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .tally__wins {
@@ -80,29 +65,14 @@
 }
 
 .rounds {
-  width: 100%;
-  border-collapse: collapse;
   font-size: 0.9375rem;
 
   th {
     padding: 0 0 0.5rem;
-    border-bottom: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-align: left;
-    text-transform: uppercase;
   }
 
   td {
     padding: 0.625rem 0;
-    border-bottom: 1px solid var(--line);
-    font-variant-numeric: tabular-nums;
-  }
-
-  tr:last-child td {
-    border-bottom: 0;
   }
 
   th:first-child,

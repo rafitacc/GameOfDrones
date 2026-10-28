@@ -1,3 +1,4 @@
+import { HttpStatusCode } from '@angular/common/http';
 import {
   DOCUMENT,
   Component,
@@ -10,16 +11,17 @@ import {
   signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { errorMessages } from '../../core/api/error-messages';
+import { errorMessages, hasStatus } from '../../core/api/error-messages';
 import { GameApi } from '../../core/api/game-api';
 import { I18n } from '../../core/i18n/i18n';
 import { Game } from '../../core/models/game';
-import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { LoadState } from '../../shared/load-state/load-state';
+import { NotFound } from '../not-found/not-found';
 import { celebrate } from '../../shared/confetti/confetti';
 
 @Component({
   selector: 'app-winner',
-  imports: [RouterLink, ErrorAlert],
+  imports: [RouterLink, LoadState, NotFound],
   templateUrl: './winner.html',
   styleUrl: './winner.scss',
 })
@@ -34,6 +36,7 @@ export class Winner implements OnInit {
 
   protected readonly game = signal<Game | null>(null);
   protected readonly errors = signal<string[]>([]);
+  protected readonly notFound = signal(false);
   protected readonly winnerIsPlayer1 = computed(
     () => this.game()?.winnerName === this.game()?.player1Name,
   );
@@ -48,7 +51,10 @@ export class Winner implements OnInit {
         this.game.set(game);
         this.startCelebration();
       },
-      error: (error: unknown) => this.errors.set(errorMessages(error, this.i18n)),
+      error: (error: unknown) => {
+        this.notFound.set(hasStatus(error, HttpStatusCode.NotFound));
+        this.errors.set(errorMessages(error, this.i18n));
+      },
     });
   }
 

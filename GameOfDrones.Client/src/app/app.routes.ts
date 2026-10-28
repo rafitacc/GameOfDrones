@@ -31,5 +31,9 @@ export const routes: Routes = [
     title: 'title.stats',
     loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    title: 'title.notFound',
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+  },
 ];
