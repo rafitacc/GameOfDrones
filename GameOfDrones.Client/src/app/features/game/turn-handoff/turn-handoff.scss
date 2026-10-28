@@ -4,7 +4,7 @@
   justify-items: center;
   padding: clamp(1rem, 4vw, 2rem) 0;
   text-align: center;
-  animation: handoff-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: rise 500ms var(--ease-out) both;
 }
 
 .handoff__locked {
@@ -68,13 +68,6 @@
   margin: 0 0 1rem;
   color: var(--muted);
   font-size: 1.0625rem;
-}
-
-@keyframes handoff-in {
-  from {
-    opacity: 0;
-    translate: 0 1.5rem;
-  }
 }
 
 @keyframes ring {

@@ -1,6 +1,6 @@
 @if (game(); as game) {
-  <main class="page winner" [class]="winnerIsPlayer1() ? 'player-1' : 'player-2'">
-    <section class="card winner__card">
+  <main class="page page--center" [class]="winnerIsPlayer1() ? 'player-1' : 'player-2'">
+    <section class="card spotlight winner__card">
       <p class="winner__eyebrow">{{ i18n.t('winner.eyebrow') }}</p>
 
       <div class="winner__crowned">

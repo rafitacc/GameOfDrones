@@ -49,6 +49,8 @@
   --font-body: 'Manrope Variable', system-ui, sans-serif;
   --page-width: 72rem;
   --radius: 1.25rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 :root[data-theme='dark'] {
@@ -111,11 +113,27 @@ h3 {
   padding: clamp(1rem, 4vw, 3rem) 0 4rem;
 }
 
+.page--center {
+  display: grid;
+  place-items: center;
+  min-height: calc(100dvh - 6rem);
+}
+
 .card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
+}
+
+.spotlight {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  width: min(100%, 42rem);
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 3rem);
+  border-top: 3px solid var(--gold);
+  text-align: center;
 }
 
 .eyebrow {
@@ -271,6 +289,13 @@ h3 {
 
   &:hover {
     color: var(--ink);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 1rem;
   }
 }
 
