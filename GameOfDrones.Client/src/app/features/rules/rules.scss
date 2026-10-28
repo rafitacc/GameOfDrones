@@ -164,6 +164,11 @@
   padding: 1.5rem;
 }
 
+.rules__overview {
+  display: grid;
+  gap: 1.25rem;
+}
+
 .rules__summary {
   margin: 0;
   padding: 0;
@@ -218,6 +223,20 @@
 
   .button {
     flex: 1 1 auto;
+  }
+}
+
+// On small screens the cards already show every rule, so the panel keeps only the
+// messages and actions and stays in reach at the bottom while the list scrolls.
+@media (width < 60rem) {
+  .rules__panel {
+    position: sticky;
+    bottom: 0.75rem;
+    z-index: 1;
+  }
+
+  .rules__overview {
+    display: none;
   }
 }
 

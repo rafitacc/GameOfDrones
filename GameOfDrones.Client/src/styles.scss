@@ -11,7 +11,6 @@
   --gold: #a87a1d;
   --danger: #b42318;
   --shadow: 0 1px 2px rgb(18 20 26 / 0.04), 0 12px 32px -12px rgb(18 20 26 / 0.12);
-  --glow: rgb(255 255 255 / 0);
 
   color-scheme: light;
 }
@@ -29,7 +28,6 @@
   --gold: #e6bd5c;
   --danger: #ff8a7a;
   --shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 24px 48px -24px rgb(0 0 0 / 0.8);
-  --glow: rgb(165 168 255 / 0.08);
 
   color-scheme: dark;
 }
@@ -72,7 +70,7 @@
 body {
   min-height: 100dvh;
   margin: 0;
-  background: radial-gradient(60rem 30rem at 50% -10rem, var(--glow), transparent), var(--paper);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;

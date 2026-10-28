@@ -12,6 +12,10 @@ import { Component, input } from '@angular/core';
     }
   `,
   styles: `
+    :host {
+      display: contents;
+    }
+
     .error-alert {
       padding: 0.75rem 1rem;
       border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);

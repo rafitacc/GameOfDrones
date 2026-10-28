@@ -84,12 +84,14 @@
     </section>
 
     <aside class="card rules__panel">
-      <h2 class="eyebrow">{{ i18n.t('rules.summary') }}</h2>
-      <ul class="rules__summary">
-        @for (line of summary(); track $index) {
-          <li>{{ line }}</li>
-        }
-      </ul>
+      <div class="rules__overview">
+        <h2 class="eyebrow">{{ i18n.t('rules.summary') }}</h2>
+        <ul class="rules__summary">
+          @for (line of summary(); track $index) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+      </div>
 
       <app-error-alert [messages]="errors()" />
       @if (notice(); as notice) {
