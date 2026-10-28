@@ -42,6 +42,7 @@ app.MapFallback("/api/{**path}", () => Results.Problem(statusCode: StatusCodes.S
 // In development the Angular dev server serves the client through SpaProxy, so there is no wwwroot.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseHsts();
     app.UseHttpsRedirection();
     app.UseDefaultFiles();
     app.UseStaticFiles();

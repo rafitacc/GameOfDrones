@@ -10,6 +10,12 @@ public static class RuleSetValidator
 
     public static IReadOnlyList<string> Validate(IReadOnlyList<MoveDto> moves)
     {
+        // Model binding does not reject null items inside a JSON array, such as [null].
+        if (moves.Any(m => m is null))
+        {
+            return [Messages.MoveNameRequired];
+        }
+
         var errors = new List<string>();
 
         if (moves.Count < MinimumMoves)

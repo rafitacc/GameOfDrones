@@ -62,6 +62,14 @@ public class RuleSetValidatorTests
     }
 
     [Fact]
+    public void Validate_NullMove_Fails()
+    {
+        var errors = RuleSetValidator.Validate([Move("Paper"), null!]);
+
+        Assert.Equal(["Move names cannot be empty."], errors);
+    }
+
+    [Fact]
     public void Validate_NameLongerThanLimit_Fails()
     {
         var errors = RuleSetValidator.Validate([Move("Paper"), Move(new string('a', 31))]);
