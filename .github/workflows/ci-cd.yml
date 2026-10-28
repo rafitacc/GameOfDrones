@@ -1,0 +1,71 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: GameOfDrones.Client/package-lock.json
+
+      - name: Install client dependencies
+        working-directory: GameOfDrones.Client
+        run: npm ci
+
+      - name: Test API
+        run: dotnet test
+
+      - name: Test client
+        working-directory: GameOfDrones.Client
+        run: npm test -- --watch=false
+
+  deploy:
+    name: Deploy to MonsterASP.NET
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: windows-latest
+    environment:
+      name: production
+      url: https://gameofdronesrcc.runasp.net
+    concurrency: production
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: GameOfDrones.Client/package-lock.json
+
+      - name: Publish
+        run: dotnet publish GameOfDrones.Server -c Release -o publish -p:UseAppHost=false
+
+      # Pinned to the 2.2.0 commit because the step receives the Web Deploy password.
+      - name: Deploy with Web Deploy
+        uses: rasmusbuchholdt/simply-web-deploy@cf9160163099a3b6b8ddf3978ed26b348221bbb8
+        with:
+          website-name: ${{ secrets.WEBSITE_NAME }}
+          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.SERVER_USERNAME }}
+          server-password: ${{ secrets.SERVER_PASSWORD }}
+          target-delete: true
