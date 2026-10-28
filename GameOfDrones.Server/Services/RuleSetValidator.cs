@@ -35,7 +35,7 @@ public static class RuleSetValidator
         }
 
         var kills = moves
-            .SelectMany(m => m.Kills.Select(k => (Winner: m.Name.Trim(), Loser: k.Trim())))
+            .SelectMany(m => m.Kills.Select(k => (Winner: m.Name.Trim(), Loser: k?.Trim() ?? string.Empty)))
             .ToList();
         var killKeys = kills.Select(k => Key(k.Winner, k.Loser)).ToHashSet();
 
