@@ -84,6 +84,8 @@ export const es: Record<TranslationKey, string> = {
   'rules.summary': 'Resumen',
   'rules.summaryKills': '{move} mata a {targets}.',
   'rules.summaryNothing': '{move} no mata a nadie.',
+  'rules.tieNote':
+    'Si ningún movimiento mata al otro, la ronda es un empate y se juega la siguiente.',
   'rules.save': 'Guardar reglas',
   'rules.saving': 'Guardando…',
   'rules.saved': 'Reglas guardadas.',

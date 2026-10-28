@@ -82,6 +82,8 @@ export const en = {
   'rules.summary': 'Summary',
   'rules.summaryKills': '{move} kills {targets}.',
   'rules.summaryNothing': '{move} kills nothing.',
+  'rules.tieNote':
+    'When neither move kills the other, the round is a tie and you play the next one.',
   'rules.save': 'Save rules',
   'rules.saving': 'Saving…',
   'rules.saved': 'Rules saved.',
