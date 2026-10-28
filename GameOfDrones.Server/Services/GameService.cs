@@ -28,16 +28,16 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
             throw new RequestValidationException(errors);
         }
 
-        var game = new Game
+        try
         {
-            Player1 = await FindOrCreatePlayerAsync(player1Name, cancellationToken),
-            Player2 = await FindOrCreatePlayerAsync(player2Name, cancellationToken),
-            CreatedAt = timeProvider.GetUtcNow().UtcDateTime,
-        };
-        db.Games.Add(game);
-        await db.SaveChangesAsync(cancellationToken);
-
-        return ToDto(game);
+            return ToDto(await AddGameAsync(player1Name, player2Name, cancellationToken));
+        }
+        catch (DbUpdateException exception) when (exception.IsConcurrentChange())
+        {
+            // Another request created one of these players at the same time, so it exists now.
+            db.ChangeTracker.Clear();
+            return ToDto(await AddGameAsync(player1Name, player2Name, cancellationToken));
+        }
     }
 
     public async Task<GameDto> GetAsync(int id, CancellationToken cancellationToken) =>
@@ -70,8 +70,21 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
             game.FinishedAt = timeProvider.GetUtcNow().UtcDateTime;
         }
 
-        await db.SaveChangesAsync(cancellationToken);
+        await db.SaveChangesOrConflictAsync(cancellationToken);
         return ToDto(game);
+    }
+
+    private async Task<Game> AddGameAsync(string player1Name, string player2Name, CancellationToken cancellationToken)
+    {
+        var game = new Game
+        {
+            Player1 = await FindOrCreatePlayerAsync(player1Name, cancellationToken),
+            Player2 = await FindOrCreatePlayerAsync(player2Name, cancellationToken),
+            CreatedAt = timeProvider.GetUtcNow().UtcDateTime,
+        };
+        db.Games.Add(game);
+        await db.SaveChangesOrConflictAsync(cancellationToken);
+        return game;
     }
 
     private static void ValidatePlayerName(string name, int playerNumber, List<string> errors)

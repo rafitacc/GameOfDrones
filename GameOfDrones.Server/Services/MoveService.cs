@@ -61,7 +61,7 @@ public class MoveService(GameOfDronesDbContext db)
         db.MoveRules.RemoveRange(removedMoves.SelectMany(m => m.Kills));
         db.Moves.RemoveRange(removedMoves);
 
-        await db.SaveChangesAsync(cancellationToken);
+        await db.SaveChangesOrConflictAsync(cancellationToken);
         return await GetAllAsync(cancellationToken);
     }
 
