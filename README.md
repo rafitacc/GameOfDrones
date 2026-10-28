@@ -110,7 +110,7 @@ Errors are `ProblemDetails` in the language of the `Accept-Language` header: 400
 - **Concurrent requests do not corrupt data.** Unique indexes guard rounds and players. A collision becomes a 409, and the game screen reloads the score and asks for the round again.
 - **One deployable app.** In development SpaProxy starts the Angular dev server. On publish the API serves the built client, and unknown `/api` routes return a 404 ProblemDetails instead of the Angular page.
 - **No secrets in the repository.** Only the LocalDB connection string, which has none, is committed for F5. Other environments use User Secrets or environment variables.
-- `System.Security.Cryptography.Pkcs` is referenced explicitly to replace a vulnerable version that SQL Server's client library pulls in.
+- `System.Security.Cryptography.Pkcs` is referenced explicitly to replace a vulnerable version that SQL Server's client library pulls in. For the same reason, `package.json` overrides the Vite version that Angular's build tools pin.
 
 ## Known limitations
 
