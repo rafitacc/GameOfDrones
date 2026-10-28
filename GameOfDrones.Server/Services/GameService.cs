@@ -28,16 +28,20 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
             throw new RequestValidationException(errors);
         }
 
+        var game = await AddGameAsync(player1Name, player2Name, cancellationToken);
         try
         {
-            return ToDto(await AddGameAsync(player1Name, player2Name, cancellationToken));
+            await db.SaveChangesAsync(cancellationToken);
         }
         catch (DbUpdateException exception) when (exception.IsConcurrentChange())
         {
             // Another request created one of these players at the same time, so it exists now.
             db.ChangeTracker.Clear();
-            return ToDto(await AddGameAsync(player1Name, player2Name, cancellationToken));
+            game = await AddGameAsync(player1Name, player2Name, cancellationToken);
+            await db.SaveChangesOrConflictAsync(cancellationToken);
         }
+
+        return ToDto(game);
     }
 
     public async Task<GameDto> GetAsync(int id, CancellationToken cancellationToken) =>
@@ -83,7 +87,6 @@ public class GameService(GameOfDronesDbContext db, MoveService moveService, Time
             CreatedAt = timeProvider.GetUtcNow().UtcDateTime,
         };
         db.Games.Add(game);
-        await db.SaveChangesOrConflictAsync(cancellationToken);
         return game;
     }
 
