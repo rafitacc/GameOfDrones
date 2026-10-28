@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.6887863">
+  <!--
+    Shows the Angular client in Visual Studio's Solution Explorer. GameOfDrones.Server starts
+    the dev server (SpaProxy) and builds the client on publish, so this project builds nothing.
+  -->
+  <PropertyGroup>
+    <ShouldRunNpmInstall>false</ShouldRunNpmInstall>
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    <JavaScriptTestFramework>Vitest</JavaScriptTestFramework>
+  </PropertyGroup>
+</Project>
