@@ -21,5 +21,15 @@ export const routes: Routes = [
     title: 'title.winner',
     loadComponent: () => import('./features/winner/winner').then((m) => m.Winner),
   },
+  {
+    path: 'rules',
+    title: 'title.rules',
+    loadComponent: () => import('./features/rules/rules').then((m) => m.Rules),
+  },
+  {
+    path: 'stats',
+    title: 'title.stats',
+    loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
+  },
   { path: '**', redirectTo: '' },
 ];

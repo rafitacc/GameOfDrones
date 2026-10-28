@@ -5,6 +5,7 @@ import { errorMessages } from '../../core/api/error-messages';
 import { GameApi } from '../../core/api/game-api';
 import { I18n } from '../../core/i18n/i18n';
 import { ErrorAlert } from '../../shared/error-alert/error-alert';
+import { LastPlayers } from './last-players';
 
 const nameMaxLength = 50;
 
@@ -17,12 +18,13 @@ const nameMaxLength = 50;
 export class Setup {
   private readonly gameApi = inject(GameApi);
   private readonly router = inject(Router);
+  private readonly lastPlayers = inject(LastPlayers);
   protected readonly i18n = inject(I18n);
 
   protected readonly nameMaxLength = nameMaxLength;
   protected readonly form = new FormGroup({
-    player1: this.nameControl(),
-    player2: this.nameControl(),
+    player1: this.nameControl(this.lastPlayers.names().player1),
+    player2: this.nameControl(this.lastPlayers.names().player2),
   });
   protected readonly players = [
     { control: 'player1', number: 1, css: 'player-1' },
@@ -42,7 +44,10 @@ export class Setup {
     this.errors.set([]);
 
     this.gameApi.create(player1.trim(), player2.trim()).subscribe({
-      next: (game) => this.router.navigate(['/games', game.id]),
+      next: (game) => {
+        this.lastPlayers.names.set({ player1: game.player1Name, player2: game.player2Name });
+        this.router.navigate(['/games', game.id]);
+      },
       error: (error: unknown) => {
         this.errors.set(errorMessages(error, this.i18n));
         this.starting.set(false);
@@ -50,8 +55,8 @@ export class Setup {
     });
   }
 
-  private nameControl(): FormControl<string> {
-    return new FormControl('', {
+  private nameControl(name: string): FormControl<string> {
+    return new FormControl(name, {
       nonNullable: true,
       validators: [Validators.required, Validators.maxLength(nameMaxLength)],
     });

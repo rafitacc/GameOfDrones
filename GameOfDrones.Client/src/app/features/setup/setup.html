@@ -30,7 +30,7 @@
     <app-error-alert [messages]="errors()" />
 
     <div class="setup__actions">
-      <a class="text-link" routerLink="/">{{ i18n.t('setup.back') }}</a>
+      <a class="text-link" routerLink="/">{{ i18n.t('common.back') }}</a>
       <button class="button" type="submit" [disabled]="starting()">
         {{ starting() ? i18n.t('setup.starting') : i18n.t('setup.start') }}
       </button>

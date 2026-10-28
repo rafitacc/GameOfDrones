@@ -11,4 +11,12 @@ export class MoveApi {
   getAll(): Observable<Move[]> {
     return this.http.get<Move[]>(this.baseUrl);
   }
+
+  replaceAll(moves: Move[]): Observable<Move[]> {
+    return this.http.put<Move[]>(this.baseUrl, moves);
+  }
+
+  reset(): Observable<Move[]> {
+    return this.http.post<Move[]>(`${this.baseUrl}/reset`, null);
+  }
 }
