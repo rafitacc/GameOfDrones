@@ -1,0 +1,13 @@
+<main class="page page--center">
+  <section class="card spotlight not-found__card">
+    <p class="eyebrow">{{ i18n.t('notFound.eyebrow') }}</p>
+    <h1 class="not-found__title">{{ i18n.t('game.round', { number: 404 }) }}</h1>
+
+    <app-duel [sides]="sides()" [verdict]="verdict()" />
+
+    <nav class="not-found__actions">
+      <a class="button" routerLink="/">{{ i18n.t('notFound.home') }}</a>
+      <a class="button button--ghost" routerLink="/players">{{ i18n.t('notFound.play') }}</a>
+    </nav>
+  </section>
+</main>

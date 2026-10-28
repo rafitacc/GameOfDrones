@@ -37,6 +37,8 @@
       </nav>
     </section>
   </main>
+} @else if (notFound()) {
+  <app-not-found />
 } @else {
   <main class="page">
     <app-load-state [errors]="errors()" [loading]="i18n.t('winner.loading')">

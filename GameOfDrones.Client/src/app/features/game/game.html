@@ -47,6 +47,8 @@
       </aside>
     </main>
   }
+} @else if (session.notFound()) {
+  <app-not-found />
 } @else {
   <main class="page">
     <app-load-state [errors]="session.errors()" [loading]="i18n.t('game.loading')">

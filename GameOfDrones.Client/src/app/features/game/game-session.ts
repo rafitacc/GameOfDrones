@@ -1,6 +1,7 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { errorMessages } from '../../core/api/error-messages';
+import { errorMessages, hasStatus } from '../../core/api/error-messages';
 import { GameApi } from '../../core/api/game-api';
 import { MoveApi } from '../../core/api/move-api';
 import { I18n } from '../../core/i18n/i18n';
@@ -11,7 +12,7 @@ import { Move } from '../../core/models/move';
  * player1 → handoff (pass the screen) → player2 → reveal (round result) → player1 …
  * The round that decides the game skips the reveal and goes straight to the winner screen.
  */
-export type Stage = 'player1' | 'handoff' | 'player2' | 'reveal';
+type Stage = 'player1' | 'handoff' | 'player2' | 'reveal';
 
 /**
  * State of the game being played. Player 1's move is kept here, never rendered,
@@ -27,6 +28,7 @@ export class GameSession {
   readonly game = signal<Game | null>(null);
   readonly moves = signal<Move[]>([]);
   readonly errors = signal<string[]>([]);
+  readonly notFound = signal(false);
   readonly sending = signal(false);
   readonly stage = signal<Stage>('player1');
 
@@ -38,7 +40,10 @@ export class GameSession {
         this.game.set(game);
         this.moves.set(moves);
       },
-      error: (error: unknown) => this.errors.set(errorMessages(error, this.i18n)),
+      error: (error: unknown) => {
+        this.notFound.set(hasStatus(error, HttpStatusCode.NotFound));
+        this.errors.set(errorMessages(error, this.i18n));
+      },
     });
   }
 
@@ -79,4 +84,5 @@ export class GameSession {
   nextRound(): void {
     this.stage.set('player1');
   }
+
 }

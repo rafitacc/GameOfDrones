@@ -4,6 +4,7 @@ import { I18n } from '../../core/i18n/i18n';
 import { winsToFinish } from '../../core/models/game';
 import { ErrorAlert } from '../../shared/error-alert/error-alert';
 import { LoadState } from '../../shared/load-state/load-state';
+import { NotFound } from '../not-found/not-found';
 import { GameSession } from './game-session';
 import { MovePicker } from './move-picker/move-picker';
 import { RoundReveal } from './round-reveal/round-reveal';
@@ -12,7 +13,16 @@ import { TurnHandoff } from './turn-handoff/turn-handoff';
 
 @Component({
   selector: 'app-game',
-  imports: [RouterLink, ErrorAlert, LoadState, MovePicker, RoundReveal, Scoreboard, TurnHandoff],
+  imports: [
+    RouterLink,
+    ErrorAlert,
+    LoadState,
+    MovePicker,
+    NotFound,
+    RoundReveal,
+    Scoreboard,
+    TurnHandoff,
+  ],
   providers: [GameSession],
   templateUrl: './game.html',
   styleUrl: './game.scss',

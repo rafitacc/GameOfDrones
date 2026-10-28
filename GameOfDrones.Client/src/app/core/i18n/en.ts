@@ -6,6 +6,7 @@ export const en = {
   'title.winner': 'Winner · Game of Drones',
   'title.rules': 'Rules · Game of Drones',
   'title.stats': 'Stats · Game of Drones',
+  'title.notFound': 'Not found · Game of Drones',
 
   'common.back': 'Back',
   'nav.rules': 'Edit rules',
@@ -99,6 +100,15 @@ export const en = {
   'stats.emptyTitle': 'No games yet',
   'stats.emptyText': 'Finish a game and the winners will show up here.',
   'stats.loading': 'Loading stats…',
+
+  'notFound.eyebrow': 'Error 404',
+  'notFound.you': 'You played',
+  'notFound.map': 'The map',
+  'notFound.nothing': 'Nothing here',
+  'notFound.verdict': 'Nobody wins this round',
+  'notFound.detail': 'Neither move kills the other, because this page does not exist.',
+  'notFound.home': 'Back home',
+  'notFound.play': 'Start a game',
 
   'error.unexpected': 'Unexpected error. Try again.',
   'error.unreachable': 'The server cannot be reached. Check your connection and try again.',
