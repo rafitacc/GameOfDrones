@@ -1,6 +1,10 @@
 # Game of Drones
 
+[![CI/CD](https://github.com/rafitacc/GameOfDrones/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/rafitacc/GameOfDrones/actions/workflows/ci-cd.yml)
+
 Paper, Rock and Scissors for two players sharing one screen. The first player to win three rounds becomes the new emperor.
+
+**Play it online: https://gameofdronesrcc.runasp.net**
 
 Built with **ASP.NET Core (.NET 10)**, **Entity Framework Core** on **SQL Server** and **Angular 22**.
 
@@ -51,7 +55,7 @@ dotnet user-secrets set "ConnectionStrings:GameOfDrones" "Server=localhost,1433;
 dotnet test
 ```
 
-46 xUnit tests cover the domain (round resolution, the end of a game, rule set validation) and the services against an in-memory SQLite database (games, rounds, rule set replacement and reset, stats).
+47 xUnit tests cover the domain (round resolution, the end of a game, rule set validation) and the services against an in-memory SQLite database (games, rounds, rule set replacement and reset, stats).
 
 ```bash
 cd GameOfDrones.Client
@@ -63,15 +67,31 @@ npm test -- --watch=false
 ## Publish
 
 ```bash
-dotnet publish GameOfDrones.Server -c Release -o publish
+dotnet publish GameOfDrones.Server -c Release -o publish -p:UseAppHost=false
 ```
 
 Publishing builds the Angular app and copies it to `wwwroot`, so the API also serves the client and the whole game is one deployable app. Set the connection string through the `ConnectionStrings__GameOfDrones` environment variable or your host's configuration. Migrations run on startup.
+
+## Deployment
+
+The live game runs on [MonsterASP.NET](https://www.monsterasp.net) (IIS with SQL Server). The `CI/CD` GitHub Actions workflow builds and tests every push and pull request on Windows. Pushes to `main` are then published and deployed with Web Deploy, which stops the site while it copies the files and starts it again.
+
+The workflow reads the Web Deploy details from these repository secrets, shown on the hosting control panel under **Deploy → Visual Studio access**:
+
+| Secret                 | Example                               |
+| ---------------------- | ------------------------------------- |
+| `WEBSITE_NAME`         | `site102675`                          |
+| `SERVER_COMPUTER_NAME` | `https://site102675.siteasp.net:8172` |
+| `SERVER_USERNAME`      | `site102675`                          |
+| `SERVER_PASSWORD`      | The Web Deploy password               |
+
+The connection string is not part of the deployment. It is set once on the host as the `ConnectionStrings__GameOfDrones` environment variable.
 
 ## Project structure
 
 ```
 GameOfDrones.slnx
+├── .github/workflows/      CI/CD: tests on every push, deploy from main
 ├── GameOfDrones.Server/    ASP.NET Core API
 │   ├── Controllers/        games, moves, player stats
 │   ├── Services/           game flow, rule set replacement and validation, stats
