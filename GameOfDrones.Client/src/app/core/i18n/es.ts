@@ -10,6 +10,8 @@ export const es: Record<TranslationKey, string> = {
   'title.stats': 'Estadísticas · Game of Drones',
 
   'common.back': 'Volver',
+  'nav.rules': 'Editar reglas',
+  'nav.stats': 'Estadísticas',
 
   'header.home': 'Inicio de Game of Drones',
   'header.language': 'Idioma',
@@ -25,8 +27,6 @@ export const es: Record<TranslationKey, string> = {
   'home.step2': 'Cada jugador elige su movimiento mientras el otro no mira.',
   'home.step3': 'Quien gane tres rondas primero se convierte en emperador.',
   'home.start': 'Empezar',
-  'home.rules': 'Editar reglas',
-  'home.stats': 'Estadísticas',
 
   'setup.title': 'Nombres de los jugadores',
   'setup.player': 'Jugador {number}',

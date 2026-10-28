@@ -121,6 +121,13 @@ $spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: rise 500ms 1400ms $ease-out both;
 }
 
+.winner__links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  animation: rise 500ms 1500ms $ease-out both;
+}
+
 .winner-status {
   display: grid;
   gap: 1.5rem;

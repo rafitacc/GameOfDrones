@@ -31,6 +31,10 @@
       <p class="winner__rounds">{{ i18n.t('winner.rounds', { rounds: game.rounds.length }) }}</p>
 
       <a class="button winner__again" routerLink="/">{{ i18n.t('winner.playAgain') }}</a>
+      <nav class="winner__links">
+        <a class="text-link" routerLink="/rules">{{ i18n.t('nav.rules') }}</a>
+        <a class="text-link" routerLink="/stats">{{ i18n.t('nav.stats') }}</a>
+      </nav>
     </section>
   </main>
 } @else {
